@@ -23,6 +23,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  overflow: hidden;
+  padding: 27px;
 }
 
 .message-section {
@@ -46,6 +48,7 @@ body {
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0px;
+  font-weight: bold;
 }
 
 .text-style {
@@ -55,19 +58,19 @@ body {
   color: #67727e;
 }
 
+.username {
+  color: #5357b6;
+  font-weight: bold;
+}
+
 .picture-styles {
   width: 32px;
   height: 32px;
 }
 
-#send-button {
-  background-color: #5357b6;
-  color: #ffffff;
-  padding: 12px 31px;
-  display: flex;
-  align-items: center;
-  border-radius: 8px;
-  border: none;
+.score {
+  color: #5357b6;
+  font-weight: bold;
 }
 
 .plus-minus-style {
@@ -84,9 +87,52 @@ body {
   display: none;
 }
 
+.edit-button {
+  border: none;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.edit-button.no-border {
+  border: none;
+}
+
+.reply-section {
+  color: #5357b6;
+  font-weight: bold;
+}
+
 .message-footer {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 145px;
+}
+
+.comment-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#commentInput {
+  padding: 54px 106px;
+  border: none;
+  border-radius: 8px;
+}
+
+.comment-avatar {
+  transform: translate(-162px, -16px);
+  width: 32px;
+}
+
+#send-button {
+  background-color: #5357b6;
+  color: #ffffff;
+  padding: 12px 31px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  border: none;
+  transform: translate(100px, 18px);
 }

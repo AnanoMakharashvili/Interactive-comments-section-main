@@ -9,60 +9,52 @@ fetch("./data.json")
   .then((data) => console.log("Data loaded:", data))
   .catch((error) => console.error("Error fetching JSON:", error));
 
-function markup(id, picture, name, time, text, score) {
+function markup(id, picture, name, time, text, score, replyingTo) {
+  const modifiedText = text.replace(
+    /@(\w+)/g,
+    '<span class="username">@$1</span>'
+  );
+
+  const replyText = replyingTo
+    ? `<span class="replyingTo">@${replyingTo}</span>: `
+    : "";
+
   return `
-      <div id="${id}" class="message-section">
-        <div class="plus-minus-style-second">
-          <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-          <span class="score">${score}</span>
-          <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
-        </div>
-        <div class="header">
-          <div class="message-header">
-            <img alt="${name}" class="picture-styles" src="${picture}">
-            <h1 class="Name-styles">${name}</h1>
-            <span class="text-style">${time}</span>
-          </div>
-          <p class="text-style">${text}</p>
-        </div>
-        <div class="message-footer">
-          <div class="plus-minus-style">
-            <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-            <span class="score">${score}</span>
-            <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
-          </div>
-          <div class="reply-section">
-            <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
-              <img class="reply-img-style" alt="reply" src="./assets/icon-reply.svg" />
-            </button>
-            <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
-              <span>Reply</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
+          <div id="${id}" class="message-section">
+            <div class="plus-minus-style-second">
+              <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
+              <span class="score">${score}</span>
+              <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
+            </div>
+            <div class="header">
+              <div class="message-header">
+                <img alt="${name}" class="picture-styles" src="${picture}">
+                <h1 class="Name-styles">${name}</h1>
+                <span class="text-style">${time}</span>
+              </div>
+              <p class="text-style">
+                ${replyText}${modifiedText}
+              </p>
+            </div>
+            <div class="message-footer">
+              <div class="plus-minus-style">
+                <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
+                <span class="score">${score}</span>
+                <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
+              </div>
+              <div class="reply-section">
+                <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
+                  <img class="reply-img-style" alt="reply" src="./assets/icon-reply.svg" />
+                </button>
+                <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
+                  <span class="reply-section">Reply</span>
+                </button>
+                  </div>
+                   </div>
+             </div>
+             
+        `;
 }
-
-// document.body.insertAdjacentHTML(
-//   "beforeend",
-//   `
-//   <div class="comment-box">
-//     <input type="text" id="commentInput" placeholder="Add a comment…">
-//     <button id="send-button" onclick="addComment()">SEND</button>
-//   </div>
-// `
-// );
-
-function addComment() {
-  const commentInput = document.getElementById("commentInput").value;
-  console.log("New comment:", commentInput);
-}
-
-window.messageSection = (event) => {
-  let messageInput = document.getElementById("message-section");
-  messageInput.style.display = "flex";
-};
 
 fetch("./data.json")
   .then((response) => {
@@ -109,7 +101,23 @@ function displayComments(comments) {
   });
 
   document.body.appendChild(container);
+
+  const commentBox = document.createElement("div");
+  commentBox.className = "comment-box";
+  commentBox.innerHTML = `
+   
+    <input type="text" id="commentInput" placeholder="Add a comment..." />
+    <button id="send-button" onclick="addComment()">SEND</button>
+     <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
+  `;
+  document.body.appendChild(commentBox);
 }
 
-console.log("ფოტოს ბილიკი:", picture);
-console.log(`👉 Rendering picture: ${picture}`);
+function addComment() {
+  const commentInput = document.getElementById("commentInput");
+  const newComment = commentInput.value.trim();
+  if (newComment !== "") {
+    console.log("New comment:", newComment);
+    commentInput.value = "";
+  }
+}
