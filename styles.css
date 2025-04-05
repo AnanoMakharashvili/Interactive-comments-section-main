@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital@0;1&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Rubik;
+}
+
+body {
+  background-color: #f5f6fa;
+}
+
+.main-container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#comments-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.message-section {
+  background-color: #ffffff;
+  padding: 30px 11px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+}
+
+.Name-styles {
+  color: #334253;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0px;
+}
+
+.text-style {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #67727e;
+}
+
+.picture-styles {
+  width: 32px;
+  height: 32px;
+}
+
+#send-button {
+  background-color: #5357b6;
+  color: #ffffff;
+  padding: 12px 31px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  border: none;
+}
+
+.plus-minus-style {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 13px;
+  background: #f5f6fa;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.plus-minus-style-second {
+  display: none;
+}
+
+.message-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 145px;
+}
