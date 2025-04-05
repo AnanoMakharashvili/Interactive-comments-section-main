@@ -9,53 +9,6 @@ fetch("./data.json")
   .then((data) => console.log("Data loaded:", data))
   .catch((error) => console.error("Error fetching JSON:", error));
 
-// function markup(id, picture, name, time, text, score, replyingTo) {
-//   const modifiedText = text.replace(
-//     /@(\w+)/g,
-//     '<span class="username">@$1</span>'
-//   );
-
-//   const replyText = replyingTo
-//     ? `<span class="replyingTo">@${replyingTo}</span>: `
-//     : "";
-
-//   return `
-//           <div id="${id}" class="message-section">
-//             <div class="plus-minus-style-second">
-//               <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-//               <span class="score">${score}</span>
-//               <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
-//             </div>
-//             <div class="header">
-//               <div class="message-header">
-//                 <img alt="${name}" class="picture-styles" src="${picture}">
-//                 <h1 class="Name-styles">${name}</h1>
-//                 <span class="text-style">${time}</span>
-//               </div>
-//               <p class="text-style">
-//                 ${replyText}${modifiedText}
-//               </p>
-//             </div>
-//             <div class="message-footer">
-//               <div class="plus-minus-style">
-//                 <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-//                 <span class="score">${score}</span>
-//                 <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
-//               </div>
-//               <div class="reply-section">
-//                 <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
-//                   <img class="reply-img-style" alt="reply" src="./assets/icon-reply.svg" />
-//                 </button>
-//                 <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
-//                   <span class="reply-section">Reply</span>
-//                 </button>
-//                   </div>
-//                    </div>
-//              </div>
-
-//         `;
-// }
-
 function markup(id, picture, name, time, text, score, replyingTo) {
   const modifiedText = text.replace(
     /@(\w+)/g,
@@ -66,7 +19,6 @@ function markup(id, picture, name, time, text, score, replyingTo) {
     ? `<span class="replyingTo">@${replyingTo}</span>: `
     : "";
 
-  // if the username is "juliusomo", add "(you)" to the name
   const youTag = name === "juliusomo" ? '<span class="you-tag">you</span>' : "";
 
   return `
