@@ -87,6 +87,11 @@ body {
   display: none;
 }
 
+.replyingTo {
+  color: #5357b6;
+  font-weight: bold;
+}
+
 .edit-button {
   border: none;
   padding: 5px;
@@ -99,6 +104,9 @@ body {
 
 .reply-section {
   color: #5357b6;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row-reverse;
   font-weight: bold;
 }
 
@@ -145,4 +153,33 @@ body {
   border-radius: 8px;
   border: none;
   transform: translate(100px, 18px);
+}
+
+.reply-input {
+  border-color: #5357b6;
+  padding: 8px 13px;
+}
+
+.reply-button {
+  background-color: #5357b6;
+  color: white;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 14px;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.delete-section {
+  color: red;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0px;
 }
