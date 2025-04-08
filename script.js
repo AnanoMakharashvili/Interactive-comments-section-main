@@ -282,3 +282,52 @@ function deleteComment(commentId) {
   const commentEl = document.getElementById(commentId);
   commentEl.remove();
 }
+
+const time = new Date().toLocaleString("en-US", {
+  hour: "2-digit",
+  minute: "2-digit",
+  day: "numeric",
+  month: "short",
+});
+
+let commentToDelete = null;
+
+function deleteComment(commentId) {
+  commentToDelete = document.getElementById(commentId);
+  showDeleteModal();
+}
+
+function showDeleteModal() {
+  const modal = document.createElement("div");
+  modal.id = "deleteModal";
+  modal.className = "modal-overlay";
+  const modalContent = document.createElement("div");
+  modalContent.className = "modal-content";
+
+  modalContent.innerHTML = `
+      <h1 class="modal-title">Delete comment</h1>
+<p class="modal-message">
+  Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
+</p>
+<div class="modal-buttons">
+  <button id="cancelDelete" class="modal-button cancel-button">NO, CANCEL</button>
+  <button id="confirmDelete" class="modal-button delete-button">YES, DELETE</button>
+</div>
+    `;
+
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
+
+  document.getElementById("cancelDelete").addEventListener("click", () => {
+    modal.remove();
+    commentToDelete = null;
+  });
+
+  document.getElementById("confirmDelete").addEventListener("click", () => {
+    if (commentToDelete) {
+      commentToDelete.remove();
+      commentToDelete = null;
+    }
+    modal.remove();
+  });
+}
