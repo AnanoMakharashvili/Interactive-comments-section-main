@@ -33,8 +33,8 @@ function markup(id, picture, name, time, text, score, replyingTo) {
       <div id="${id}" class="message-section">
         <div class="plus-minus-style-second">
           <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-          <span class="score">${score}</span>
-          <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
+          <span class="score" id="score-1">${score}</span>
+          <img id="minus-${id}" onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
         </div>
         <div class="header">
           <div class="message-header">
@@ -46,7 +46,7 @@ function markup(id, picture, name, time, text, score, replyingTo) {
         </div>
         <div class="message-footer">
           <div class="plus-minus-style">
-            <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
+            <img id="plus-${id}" onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
             <span class="score">${score}</span>
             <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
           </div>
@@ -153,8 +153,8 @@ function plusScore(event) {
   const commentEl = event.target.closest(".message-section");
   const id = commentEl.id;
 
-  const scoreEl = commentEl.querySelector(".score");
-  let score = parseInt(scoreEl.textContent);
+  const scoreEls = commentEl.querySelectorAll(".score");
+  let score = parseInt(scoreEls[0].textContent);
 
   if (voteStates[id] === "up") {
     score -= 1;
@@ -168,15 +168,15 @@ function plusScore(event) {
     voteStates[id] = "up";
   }
 
-  scoreEl.textContent = score;
+  scoreEls.forEach((el) => (el.textContent = score));
 }
 
 function minusScore(event) {
   const commentEl = event.target.closest(".message-section");
   const id = commentEl.id;
 
-  const scoreEl = commentEl.querySelector(".score");
-  let score = parseInt(scoreEl.textContent);
+  const scoreEls = commentEl.querySelectorAll(".score");
+  let score = parseInt(scoreEls[0].textContent);
 
   if (voteStates[id] === "down") {
     score += 1;
@@ -190,7 +190,7 @@ function minusScore(event) {
     voteStates[id] = "down";
   }
 
-  scoreEl.textContent = score;
+  scoreEls.forEach((el) => (el.textContent = score));
 }
 
 function openReplySection(event, parentId) {
@@ -330,4 +330,24 @@ function showDeleteModal() {
     }
     modal.remove();
   });
+}
+
+function openReplySection(event, parentId) {
+  const parentEl = document.getElementById(parentId);
+
+  const existing = parentEl.nextElementSibling;
+  if (existing && existing.classList.contains("reply-box")) {
+    existing.remove();
+    return;
+  }
+
+  const replyBox = document.createElement("div");
+  replyBox.className = "reply-box";
+  replyBox.innerHTML = `
+      <img class="reply-avatar" src="./assets/image-juliusomo.png" alt="juliusomo">
+      <textarea class="reply-input" placeholder="Write a reply..."></textarea>
+      <button class="reply-button" onclick="submitReply(${parentId})">REPLY</button>
+    `;
+
+  parentEl.insertAdjacentElement("afterend", replyBox);
 }
