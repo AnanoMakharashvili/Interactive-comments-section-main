@@ -87,8 +87,14 @@ body {
   display: none;
 }
 
-.plus-minus-style {
-  display: block;
+.reply-box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 45px;
+  background: white;
+  padding: 8px 13px;
+  border-radius: 8px;
 }
 
 .replyingTo {
@@ -174,6 +180,11 @@ body {
 .reply-input {
   border-color: #5357b6;
   padding: 8px 13px;
+  border-radius: 8px;
+}
+
+.reply-avatar {
+  width: 40px;
 }
 
 .reply-button {
