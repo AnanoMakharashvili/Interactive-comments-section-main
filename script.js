@@ -206,39 +206,36 @@ function openReplySection(event, parentId) {
   replyBox.className = "reply-box";
   replyBox.innerHTML = `
     <input type="text" class="reply-input" placeholder="Write a reply..." />
-    <button class="reply-button" onclick="submitReply(${parentId})">Reply</button>
+    <button class="reply-button" onclick="submitReply(event, '${parentId}')">Reply</button>
+
   `;
 
   parentEl.appendChild(replyBox);
 }
 
 function submitReply(parentId) {
-  const parentEl = document.getElementById(parentId);
-  const input = parentEl.querySelector(".reply-input");
+  const button = event.target;
+  const replyBox = button.closest(".reply-box");
+  const input = replyBox.querySelector(".reply-input");
   const content = input.value.trim();
 
   if (content === "") return;
 
-  const id = Date.now();
-  const picture = "./assets/image-juliusomo.png";
-  const name = "juliusomo";
-  const time = "Just now";
-  const score = 0;
+  const parentEl = document.getElementById(`message-${parentId}`);
   const replyingTo = parentEl.querySelector(".Name-styles").textContent.trim();
 
   const replyHTML = markup(
-    id,
-    picture,
-    name,
-    time,
+    Date.now(),
+    "./assets/image-juliusomo.png",
+    "juliusomo",
+    "Just now",
     `@${replyingTo} ${content}`,
-    score,
+    0,
     replyingTo
   );
-  parentEl.insertAdjacentHTML("afterend", replyHTML);
 
-  input.value = "";
-  parentEl.querySelector(".reply-box").remove();
+  parentEl.insertAdjacentHTML("afterend", replyHTML);
+  replyBox.remove();
 }
 
 function openUpdateSection(commentId) {
