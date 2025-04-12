@@ -111,13 +111,29 @@ function displayComments(comments) {
 
   const commentBox = document.createElement("div");
   commentBox.className = "comment-box";
-  commentBox.innerHTML = `
-    <input type="text" id="commentInput" placeholder="Add a comment..." />
-    <button id="send-button" onclick="addComment()">SEND</button>
-    <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
-  `;
+
+  const innerWrapper = document.createElement("div");
+  innerWrapper.className = "comment-inner";
+
+  innerWrapper.innerHTML = `
+  <input type="text" id="commentInput" placeholder="Add a comment..." />
+  <button id="send-button" onclick="addComment()">SEND</button>
+  <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
+`;
+
+  commentBox.appendChild(innerWrapper);
   document.body.appendChild(commentBox);
 }
+
+//   const commentBox = document.createElement("div");
+//   commentBox.className = "comment-box";
+//   commentBox.innerHTML = `
+//     <input type="text" id="commentInput" placeholder="Add a comment..." />
+//     <button id="send-button" onclick="addComment()">SEND</button>
+//     <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
+//   `;
+//   document.body.appendChild(commentBox);
+// }
 
 function addComment() {
   const commentInput = document.getElementById("commentInput");

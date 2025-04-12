@@ -146,7 +146,7 @@ body {
 
 #commentInput {
   padding: 54px 106px;
-  border: none;
+  border: 1px solid #e9ebf0;
   border-radius: 8px;
 }
 
@@ -295,6 +295,14 @@ body {
   cursor: pointer;
 }
 
+.comment-inner {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 11px 25px;
+}
+
 @media (min-width: 1024px) {
   .plus-minus-style-second {
     display: block;
@@ -313,11 +321,15 @@ body {
   }
 
   .message-section {
-    width: 730;
-    height: 167;
+    width: 730px;
+    height: 167px;
     border-radius: 8px;
     display: flex;
     flex-direction: row;
+  }
+
+  #message-3.message-section {
+    width: 642px;
   }
 
   .edit-button {
