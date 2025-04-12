@@ -30,7 +30,7 @@ function markup(id, picture, name, time, text, score, replyingTo) {
   const isOwnComment = name === "juliusomo";
 
   return `
-      <div id="${id}" class="message-section">
+     <div id="message-${id}" class="message-section">
         <div class="plus-minus-style-second">
           <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
           <span class="score" id="score-1">${score}</span>
@@ -242,44 +242,43 @@ function submitReply(parentId) {
 }
 
 function openUpdateSection(commentId) {
-  const commentEl = document.getElementById(commentId);
-  const existingInput = commentEl.querySelector(".update-box");
-
-  if (existingInput) {
-    existingInput.remove();
-    return;
-  }
-
+  const commentEl = document.getElementById(`message-${commentId}`);
   const contentP = commentEl.querySelector(".comment-content");
-  const oldText = contentP.textContent.trim();
 
-  const updateBox = document.createElement("div");
-  updateBox.className = "update-box";
-  updateBox.innerHTML = `
-    <input type="text" class="update-input" value="${oldText}" />
-    <button class="reply-button" onclick="submitUpdate(${commentId})">Update</button>
-  `;
+  if (commentEl.querySelector(".update-button")) return;
 
-  commentEl.appendChild(updateBox);
-}
+  contentP.contentEditable = true;
+  contentP.focus();
 
-function submitUpdate(commentId) {
-  const commentEl = document.getElementById(commentId);
-  const input = commentEl.querySelector(".update-input");
-  const newText = input.value.trim();
+  const updateBtn = document.createElement("button");
+  updateBtn.className = "update-button";
+  updateBtn.textContent = "UPDATE";
+  updateBtn.style.marginTop = "8px";
 
-  if (newText !== "") {
-    const contentP = commentEl.querySelector(".comment-content");
-    contentP.innerHTML = newText.replace(
-      /@(\w+)/g,
-      '<span class="username">@$1</span>'
-    );
-    commentEl.querySelector(".update-box").remove();
-  }
+  contentP.parentNode.appendChild(updateBtn);
+
+  updateBtn.onclick = function () {
+    const newText = contentP.textContent.trim();
+    if (newText !== "") {
+      contentP.innerHTML = newText.replace(
+        /@(\w+)/g,
+        '<span class="username">@$1</span>'
+      );
+      contentP.contentEditable = false;
+      updateBtn.remove();
+    }
+  };
+
+  contentP.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      updateBtn.click();
+    }
+  });
 }
 
 function deleteComment(commentId) {
-  const commentEl = document.getElementById(commentId);
+  commentToDelete = document.getElementById(`message-${commentId}`);
   commentEl.remove();
 }
 
@@ -293,7 +292,7 @@ const time = new Date().toLocaleString("en-US", {
 let commentToDelete = null;
 
 function deleteComment(commentId) {
-  commentToDelete = document.getElementById(commentId);
+  commentToDelete = document.getElementById(`message-${commentId}`);
   showDeleteModal();
 }
 
@@ -333,16 +332,18 @@ function showDeleteModal() {
 }
 
 function openReplySection(event, parentId) {
-  const parentEl = document.getElementById(parentId);
-
-  const existing = parentEl.nextElementSibling;
-  if (existing && existing.classList.contains("reply-box")) {
+  const replyBoxId = `reply-box-${parentId}`;
+  const existing = document.getElementById(replyBoxId);
+  if (existing) {
     existing.remove();
     return;
   }
 
+  const parentEl = document.getElementById(`message-${parentId}`);
+
   const replyBox = document.createElement("div");
   replyBox.className = "reply-box";
+  replyBox.id = replyBoxId;
   replyBox.innerHTML = `
       <img class="reply-avatar" src="./assets/image-juliusomo.png" alt="juliusomo">
       <textarea class="reply-input" placeholder="Write a reply..."></textarea>
@@ -350,4 +351,10 @@ function openReplySection(event, parentId) {
     `;
 
   parentEl.insertAdjacentElement("afterend", replyBox);
+}
+
+const messageId = `message-${commentId}`;
+
+if (messageId === "message-3" || messageId === "message-4") {
+  replyBox.querySelector(".reply-input").style.width = "642px";
 }
