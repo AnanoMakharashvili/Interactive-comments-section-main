@@ -133,11 +133,6 @@ body {
   gap: 145px;
 }
 
-/* .update-input {
-  border-color: #5357b6;
-  padding: 8px 13px;
-} */
-
 .comment-box {
   display: flex;
   flex-direction: column;
@@ -404,8 +399,8 @@ body {
   }
 
   #message-3 {
-    width: 642;
-    height: 167;
+    width: 642პხ;
+    height: 167პხ;
     border-radius: 8px;
   }
 
@@ -424,5 +419,26 @@ body {
 
   .modal-content {
     width: 400px;
+  }
+
+  .comment-inner {
+    width: 730px;
+    border-radius: 8px;
+    align-items: center;
+  }
+
+  #commentInput {
+    width: 506px;
+    height: 96px;
+  }
+
+  .comment-avatar {
+    width: 40px;
+    transform: translate(-295px, -140px);
+  }
+
+  #send-button {
+    transform: translate(300px, -103px);
+    padding: 10px 20px;
   }
 }
