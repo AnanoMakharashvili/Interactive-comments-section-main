@@ -30,50 +30,50 @@ function markup(id, picture, name, time, text, score, replyingTo) {
   const isOwnComment = name === "juliusomo";
 
   return `
-     <div id="message-${id}" class="message-section">
-        <div class="plus-minus-style-second">
+    <div id="message-${id}" class="message-section">
+      <div class="plus-minus-style-second">
+        <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
+        <span class="score">${score}</span>
+        <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
+      </div>
+      <div class="header">
+        <div class="message-header">
+          <img alt="${name}" class="picture-styles" src="${picture}" />
+          <h1 class="Name-styles">${name} ${youTag}</h1>
+          <span class="text-style">${time}</span>
+        </div>
+        <p class="text-style comment-content">${replyText}${modifiedText}</p>
+      </div>
+      <div class="message-footer">
+        <div class="plus-minus-style">
           <img onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-          <span class="score" id="score-1">${score}</span>
-          <img id="minus-${id}" onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
+          <span class="score">${score}</span>
+          <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
         </div>
-        <div class="header">
-          <div class="message-header">
-            <img alt="${name}" class="picture-styles" src="${picture}">
-            <h1 class="Name-styles">${name} ${youTag}</h1>
-            <span class="text-style">${time}</span>
-          </div>
-          <p class="text-style comment-content">${replyText}${modifiedText}</p>
-        </div>
-        <div class="message-footer">
-          <div class="plus-minus-style">
-            <img id="plus-${id}" onclick="plusScore(event)" alt="plus" class="plus-minus-icons plus" src="./assets/icon-plus.svg" />
-            <span class="score">${score}</span>
-            <img onclick="minusScore(event)" alt="minus" class="plus-minus-icons minus" src="./assets/icon-minus.svg" />
-          </div>
-          <div class="reply-section">
-            ${
-              isOwnComment
-                ? `
-                  <button onclick="openUpdateSection(${id})" class="edit-button" type="button">
-                    <img class="reply-img-style" alt="edit" src="./assets/icon-edit.svg" />
-                    <span class="reply-section">Edit</span>
-                  </button>
-                  <button onclick="deleteComment(${id})" class="edit-button delete-button" type="button">
-                    <img class="reply-img-style" alt="delete" src="./assets/icon-delete.svg" />
-                    <span class="delete-section" id="delete-span-${id}">Delete</span>
-                  </button>
-                `
-                : `
-                  <button onclick="openReplySection(event, ${id})" class="edit-button" type="button">
-                    <img class="reply-img-style" alt="reply" src="./assets/icon-reply.svg" />
-                    <span class="reply-section">Reply</span>
-                  </button>
-                `
-            }
-          </div>
+        <div class="reply-section">
+          ${
+            isOwnComment
+              ? `
+              <button onclick="openUpdateSection(${id})" class="edit-button">
+                <img class="reply-img-style" alt="edit" src="./assets/icon-edit.svg" />
+                <span class="reply-section">Edit</span>
+              </button>
+              <button onclick="deleteComment(${id})" class="edit-button delete-button">
+                <img class="reply-img-style" alt="delete" src="./assets/icon-delete.svg" />
+                <span class="delete-section">Delete</span>
+              </button>
+              `
+              : `
+              <button onclick="openReplySection(event, ${id})" class="edit-button">
+                <img class="reply-img-style" alt="reply" src="./assets/icon-reply.svg" />
+                <span class="reply-section">Reply</span>
+              </button>
+              `
+          }
         </div>
       </div>
-    `;
+    </div>
+  `;
 }
 
 function displayComments(comments) {
@@ -111,29 +111,16 @@ function displayComments(comments) {
 
   const commentBox = document.createElement("div");
   commentBox.className = "comment-box";
+  commentBox.innerHTML = `
+    <div class="comment-inner">
+      <input type="text" id="commentInput" placeholder="Add a comment..." />
+      <button id="send-button" onclick="addComment()">SEND</button>
+      <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
+    </div>
+  `;
 
-  const innerWrapper = document.createElement("div");
-  innerWrapper.className = "comment-inner";
-
-  innerWrapper.innerHTML = `
-  <input type="text" id="commentInput" placeholder="Add a comment..." />
-  <button id="send-button" onclick="addComment()">SEND</button>
-  <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
-`;
-
-  commentBox.appendChild(innerWrapper);
   document.body.appendChild(commentBox);
 }
-
-//   const commentBox = document.createElement("div");
-//   commentBox.className = "comment-box";
-//   commentBox.innerHTML = `
-//     <input type="text" id="commentInput" placeholder="Add a comment..." />
-//     <button id="send-button" onclick="addComment()">SEND</button>
-//     <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
-//   `;
-//   document.body.appendChild(commentBox);
-// }
 
 function addComment() {
   const commentInput = document.getElementById("commentInput");
@@ -142,21 +129,14 @@ function addComment() {
   if (newComment !== "") {
     const commentsContainer = document.getElementById("comments-container");
 
-    const id = Date.now();
-    const picture = "./assets/image-juliusomo.png";
-    const name = "juliusomo";
-    const time = "Just now";
-    const score = 0;
-    const replyingTo = null;
-
     const commentHTML = markup(
-      id,
-      picture,
-      name,
-      time,
+      Date.now(),
+      "./assets/image-juliusomo.png",
+      "juliusomo",
+      "Just now",
       newComment,
-      score,
-      replyingTo
+      0,
+      null
     );
     commentsContainer.innerHTML += commentHTML;
     commentInput.value = "";
@@ -168,7 +148,6 @@ const voteStates = {};
 function plusScore(event) {
   const commentEl = event.target.closest(".message-section");
   const id = commentEl.id;
-
   const scoreEls = commentEl.querySelectorAll(".score");
   let score = parseInt(scoreEls[0].textContent);
 
@@ -176,11 +155,7 @@ function plusScore(event) {
     score -= 1;
     voteStates[id] = null;
   } else {
-    if (voteStates[id] === "down") {
-      score += 2;
-    } else {
-      score += 1;
-    }
+    score += voteStates[id] === "down" ? 2 : 1;
     voteStates[id] = "up";
   }
 
@@ -190,7 +165,6 @@ function plusScore(event) {
 function minusScore(event) {
   const commentEl = event.target.closest(".message-section");
   const id = commentEl.id;
-
   const scoreEls = commentEl.querySelectorAll(".score");
   let score = parseInt(scoreEls[0].textContent);
 
@@ -198,11 +172,7 @@ function minusScore(event) {
     score += 1;
     voteStates[id] = null;
   } else {
-    if (voteStates[id] === "up") {
-      score -= 2;
-    } else {
-      score -= 1;
-    }
+    score -= voteStates[id] === "up" ? 2 : 1;
     voteStates[id] = "down";
   }
 
@@ -210,32 +180,30 @@ function minusScore(event) {
 }
 
 function openReplySection(event, parentId) {
-  const parentEl = document.getElementById(parentId);
+  const replyBoxId = `reply-box-${parentId}`;
+  const existing = document.getElementById(replyBoxId);
+  if (existing) return existing.remove();
 
-  const existing = parentEl.querySelector(".reply-box");
-  if (existing) {
-    existing.remove();
-    return;
-  }
+  const parentEl = document.getElementById(`message-${parentId}`);
 
   const replyBox = document.createElement("div");
   replyBox.className = "reply-box";
+  replyBox.id = replyBoxId;
   replyBox.innerHTML = `
-    <input type="text" class="reply-input" placeholder="Write a reply..." />
-    <button class="reply-button" onclick="submitReply(event, '${parentId}')">Reply</button>
-
+    <img class="reply-avatar" src="./assets/image-juliusomo.png" alt="juliusomo">
+    <textarea class="reply-input" placeholder="Write a reply..."></textarea>
+    <button class="reply-button" onclick="submitReply(${parentId})">REPLY</button>
   `;
 
-  parentEl.appendChild(replyBox);
+  parentEl.insertAdjacentElement("afterend", replyBox);
 }
 
 function submitReply(parentId) {
-  const button = event.target;
-  const replyBox = button.closest(".reply-box");
+  const replyBox = document.getElementById(`reply-box-${parentId}`);
   const input = replyBox.querySelector(".reply-input");
   const content = input.value.trim();
 
-  if (content === "") return;
+  if (!content) return;
 
   const parentEl = document.getElementById(`message-${parentId}`);
   const replyingTo = parentEl.querySelector(".Name-styles").textContent.trim();
@@ -250,8 +218,8 @@ function submitReply(parentId) {
     replyingTo
   );
 
-  parentEl.insertAdjacentHTML("afterend", replyHTML);
   replyBox.remove();
+  parentEl.insertAdjacentHTML("afterend", replyHTML);
 }
 
 function openUpdateSection(commentId) {
@@ -270,9 +238,9 @@ function openUpdateSection(commentId) {
 
   contentP.parentNode.appendChild(updateBtn);
 
-  updateBtn.onclick = function () {
+  updateBtn.onclick = () => {
     const newText = contentP.textContent.trim();
-    if (newText !== "") {
+    if (newText) {
       contentP.innerHTML = newText.replace(
         /@(\w+)/g,
         '<span class="username">@$1</span>'
@@ -290,18 +258,6 @@ function openUpdateSection(commentId) {
   });
 }
 
-function deleteComment(commentId) {
-  commentToDelete = document.getElementById(`message-${commentId}`);
-  commentEl.remove();
-}
-
-const time = new Date().toLocaleString("en-US", {
-  hour: "2-digit",
-  minute: "2-digit",
-  day: "numeric",
-  month: "short",
-});
-
 let commentToDelete = null;
 
 function deleteComment(commentId) {
@@ -313,61 +269,33 @@ function showDeleteModal() {
   const modal = document.createElement("div");
   modal.id = "deleteModal";
   modal.className = "modal-overlay";
+
   const modalContent = document.createElement("div");
   modalContent.className = "modal-content";
-
   modalContent.innerHTML = `
-      <h1 class="modal-title">Delete comment</h1>
-<p class="modal-message">
-  Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
-</p>
-<div class="modal-buttons">
-  <button id="cancelDelete" class="modal-button cancel-button">NO, CANCEL</button>
-  <button id="confirmDelete" class="modal-button delete-button">YES, DELETE</button>
-</div>
-    `;
+    <h1 class="modal-title">Delete comment</h1>
+    <p class="modal-message">
+      Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
+    </p>
+    <div class="modal-buttons">
+      <button id="cancelDelete" class="modal-button cancel-button">NO, CANCEL</button>
+      <button id="confirmDelete" class="modal-button delete-button">YES, DELETE</button>
+    </div>
+  `;
 
   modal.appendChild(modalContent);
   document.body.appendChild(modal);
 
-  document.getElementById("cancelDelete").addEventListener("click", () => {
+  document.getElementById("cancelDelete").onclick = () => {
     modal.remove();
     commentToDelete = null;
-  });
+  };
 
-  document.getElementById("confirmDelete").addEventListener("click", () => {
+  document.getElementById("confirmDelete").onclick = () => {
     if (commentToDelete) {
       commentToDelete.remove();
       commentToDelete = null;
     }
     modal.remove();
-  });
-}
-
-function openReplySection(event, parentId) {
-  const replyBoxId = `reply-box-${parentId}`;
-  const existing = document.getElementById(replyBoxId);
-  if (existing) {
-    existing.remove();
-    return;
-  }
-
-  const parentEl = document.getElementById(`message-${parentId}`);
-
-  const replyBox = document.createElement("div");
-  replyBox.className = "reply-box";
-  replyBox.id = replyBoxId;
-  replyBox.innerHTML = `
-      <img class="reply-avatar" src="./assets/image-juliusomo.png" alt="juliusomo">
-      <textarea class="reply-input" placeholder="Write a reply..."></textarea>
-      <button class="reply-button" onclick="submitReply(${parentId})">REPLY</button>
-    `;
-
-  parentEl.insertAdjacentElement("afterend", replyBox);
-}
-
-const messageId = `message-${commentId}`;
-
-if (messageId === "message-3" || messageId === "message-4") {
-  replyBox.querySelector(".reply-input").style.width = "642px";
+  };
 }
