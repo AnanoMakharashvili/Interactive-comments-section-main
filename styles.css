@@ -389,6 +389,10 @@ body {
     border-radius: 8px;
   }
 
+  .reply-button:hover {
+    background-color: #c5c6ef;
+  }
+
   #reply-box-3 {
     width: 642px;
     border-radius: 8px;
@@ -440,5 +444,9 @@ body {
   #send-button {
     transform: translate(300px, -103px);
     padding: 10px 20px;
+  }
+
+  #send-button:hover {
+    background-color: #c5c6ef;
   }
 }
