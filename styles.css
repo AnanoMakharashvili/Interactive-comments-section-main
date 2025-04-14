@@ -298,6 +298,11 @@ body {
   padding: 11px 25px;
 }
 
+.edit-delete-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 @media (min-width: 1024px) {
   .plus-minus-style-second {
     display: block;
@@ -325,6 +330,7 @@ body {
 
   #message-3.message-section {
     width: 642px;
+    margin-left: 82px;
   }
 
   .edit-button {
@@ -396,6 +402,7 @@ body {
   #reply-box-3 {
     width: 642px;
     border-radius: 8px;
+    margin-left: 83px;
   }
 
   #reply-box-4 {
@@ -411,6 +418,8 @@ body {
   #message-4 {
     width: 642px;
     border-radius: 8px;
+    padding: 31px 34px;
+    margin-left: 84px;
   }
   .update-button {
     margin-top: 10px;

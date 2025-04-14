@@ -54,6 +54,7 @@ function markup(id, picture, name, time, text, score, replyingTo) {
           ${
             isOwnComment
               ? `
+               <div class="edit-delete-wrapper">
               <button onclick="openUpdateSection(${id})" class="edit-button">
                 <img class="reply-img-style" alt="edit" src="./assets/icon-edit.svg" />
                 <span class="reply-section">Edit</span>
@@ -62,6 +63,7 @@ function markup(id, picture, name, time, text, score, replyingTo) {
                 <img class="reply-img-style" alt="delete" src="./assets/icon-delete.svg" />
                 <span class="delete-section">Delete</span>
               </button>
+               </div>
               `
               : `
               <button onclick="openReplySection(event, ${id})" class="edit-button">
