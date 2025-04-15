@@ -157,12 +157,16 @@ function plusScore(event) {
   let score = parseInt(scoreEls[0].textContent);
 
   if (voteStates[id] === "up") {
-    score -= 1;
-    voteStates[id] = null;
-  } else {
-    score += voteStates[id] === "down" ? 2 : 1;
-    voteStates[id] = "up";
+    return;
   }
+
+  if (voteStates[id] === "down") {
+    score += 2;
+  } else {
+    score += 1;
+  }
+
+  voteStates[id] = "up";
 
   scoreEls.forEach((el) => (el.textContent = score));
 }
@@ -174,11 +178,19 @@ function minusScore(event) {
   let score = parseInt(scoreEls[0].textContent);
 
   if (voteStates[id] === "down") {
-    score += 1;
-    voteStates[id] = null;
+    return;
+  }
+
+  if (voteStates[id] === "up") {
+    score -= 2;
   } else {
-    score -= voteStates[id] === "up" ? 2 : 1;
-    voteStates[id] = "down";
+    score -= 1;
+  }
+
+  voteStates[id] = "down";
+
+  if (score < 0) {
+    score = 0;
   }
 
   scoreEls.forEach((el) => (el.textContent = score));
