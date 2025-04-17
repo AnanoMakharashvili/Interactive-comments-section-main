@@ -161,7 +161,7 @@ function plusScore(event) {
   }
 
   if (voteStates[id] === "down") {
-    score += 2;
+    score += 1;
   } else {
     score += 1;
   }
@@ -182,7 +182,7 @@ function minusScore(event) {
   }
 
   if (voteStates[id] === "up") {
-    score -= 2;
+    score -= 1;
   } else {
     score -= 1;
   }
