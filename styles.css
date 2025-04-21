@@ -381,6 +381,14 @@ body {
     height: fit-content;
   }
 
+  .reply-section:hover {
+    color: #c5c6ef;
+  }
+
+  .reply-img-style:hover {
+    color: #c5c6ef;
+  }
+
   .reply-box {
     background-color: #ffffff;
     display: flex;
