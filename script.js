@@ -115,12 +115,12 @@ function displayComments(comments) {
   commentBox.className = "comment-box";
   commentBox.innerHTML = `
     <div class="comment-inner">
-      
+
     <input type="text" id="commentInput" placeholder="Add a comment..." />
-   
+
     <button id="send-button" onclick="addComment()">SEND</button>
      <img class="comment-avatar" src="./assets/image-juliusomo.png" alt="user" />
-    
+
     </div>
   `;
 

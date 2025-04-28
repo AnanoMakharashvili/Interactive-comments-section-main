@@ -129,7 +129,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 145px;
+  gap: 130px;
 }
 
 .comment-box {
@@ -303,6 +303,12 @@ body {
   flex-direction: row-reverse;
 }
 
+#commentInput {
+  vertical-align: top;
+  text-align: left;
+  padding-top: 8px;
+}
+
 @media (min-width: 1024px) {
   .plus-minus-style-second {
     display: block;
@@ -339,12 +345,12 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0px;
   }
 
   .header {
     display: flex;
     flex-direction: column;
+    line-break: anywhere;
   }
 
   .reply-box {
@@ -386,7 +392,7 @@ body {
   }
 
   .reply-img-style:hover {
-    color: #c5c6ef;
+    background-color: #c5c6ef;
   }
 
   .reply-box {
@@ -446,6 +452,7 @@ body {
     width: 730px;
     border-radius: 8px;
     align-items: center;
+    padding: 24px;
   }
 
   #commentInput {
